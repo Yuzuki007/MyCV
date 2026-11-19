@@ -233,6 +233,8 @@ footer span{color:#86671f}
 .ct .ci svg{stroke:#fff}
 .certs li{border-left:3px solid rgba(111,143,114,.55)}
 .search:focus{border-color:var(--gold)}
+.skill.cur{border-left-color:var(--gold);background:linear-gradient(180deg,rgba(190,150,60,.08),rgba(111,143,114,.06)),var(--panel2)}
+.skill h4 em.new{font-style:normal;font-family:var(--font);text-transform:none;letter-spacing:0;font-size:.6rem;font-weight:600;color:#fff;background:var(--accent);padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:1px}
 </style>
 </head>
 <body>
@@ -404,11 +406,15 @@ const JOBS = [
 ];
 
 const SKILLS = {
+  "Integration & APIs":["API Integration","MCP (Model Context Protocol)","OAuth 2.0","REST APIs","SaaS Integrations","AI-Assisted Development","Claude Code","Generative AI Tools","Prompt Engineering"],
+  "Automation & Low-Code":["Workflow Automation","Business Process Automation","Low-Code Development","No-Code Development"],
+  "App & Dashboard Development":["Custom Widgets","Dashboard Tiles","Live Reporting Apps","Interactive Financial Reports","Client-facing Documents"],
+  "Release & Testing":["Dev / Staging / Production","Scoped Release Promotions","Smoke Testing","Local Test Harnesses","Live Environment Verification","Root Cause Analysis"],
   "Microsoft 365":["Exchange Online","SharePoint","Teams","OneDrive","M365 Administration"],
   "Identity & Access":["Entra ID (Azure AD)","Active Directory","Microsoft Intune","PAM / Secret Server","RBAC","Conditional Access"],
   "ERP Systems":["Oracle Fusion ERP","SAP Concur"],
   "Security & Filtering":["Proofpoint (spam, phishing, DLP)","iboss (content filtering, threat protection)"],
-  "ITSM & Monitoring":["ServiceNow","ConnectWise Ticketing","SLA Management","Incident Escalation"],
+  "ITSM & Monitoring":["ServiceNow","Dynamics 365 Case Management","ConnectWise Ticketing","SLA Management","Incident Escalation"],
   "Infrastructure":["Windows Server 2019/2022","DNS","DHCP","Group Policy","Active Directory DS","Oracle VirtualBox"],
   "Healthcare IT":["Epic EHR (Carepath & ConnectCare)","Clinical Application Support"],
   "Endpoint Management":["Microsoft Intune MDM","iOS","Android","Windows","macOS","Device Enrollment & Compliance"],
@@ -463,8 +469,8 @@ selectJob(0);
 $("#expCount").textContent=`${JOBS.length} roles · ${fmt(JOBS[JOBS.length-1].start)} – Present`;
 
 /* ================= SKILLS ================= */
-let total=0;
-$("#skillGrid").innerHTML=Object.entries(SKILLS).map(([k,v])=>{total+=v.length;return `<div class="skill"><h4>${esc(k)}<b>${v.length}</b></h4><div class="chips">${v.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div></div>`}).join("");
+let total=0;const CURRENT=["Integration & APIs","Automation & Low-Code","App & Dashboard Development","Release & Testing"];
+$("#skillGrid").innerHTML=Object.entries(SKILLS).map(([k,v])=>{total+=v.length;const isNew=CURRENT.includes(k);return `<div class="skill${isNew?" cur":""}"><h4><span>${esc(k)}${isNew?' <em class="new">Current role</em>':""}</span><b>${v.length}</b></h4><div class="chips">${v.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div></div>`}).join("");
 $("#skillCount").textContent=`${total} skills across ${Object.keys(SKILLS).length} domains`;
 
 /* ================= PROJECTS ================= */
